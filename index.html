@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inmo × Proauto — Proposta de Sustentação</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg-light:#FAFAFC;
+    --bg-paper:#FFFFFF;
+    --ink:#181024;
+    --ink-soft:#534B63;
+    --purple-900:#2A0E4F;
+    --purple-700:#5B21B6;
+    --purple-600:#7C3AED;
+    --purple-400:#A476F0;
+    --purple-200:#E4D9FB;
+    --magenta:#C026D3;
+    --line:#E7E1F3;
+    --amber:#F59E0B;
+    --green:#16A34A;
+    --red:#DC2626;
+    --maxw:1120px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  section[id]{scroll-margin-top:84px;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg-light);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif; letter-spacing:-0.01em;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  section{position:relative;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+
+  ::selection{background:var(--purple-400); color:#fff;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(250,250,252,0.78);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+    transition:background .3s;
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:68px;}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700; font-size:18px;}
+  .brand .dot{width:9px; height:9px; border-radius:50%; background:linear-gradient(135deg,var(--purple-600),var(--magenta)); box-shadow:0 0 0 4px var(--purple-200);}
+  .navlinks{display:flex; gap:28px; font-size:14px; font-weight:500; color:var(--ink-soft);}
+  .navlinks a{position:relative; padding:4px 0;}
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:var(--purple-600);transition:width .25s;}
+  .navlinks a:hover::after{width:100%;}
+  .nav-cta{
+    font-size:13px; font-weight:600; padding:9px 18px; border-radius:100px;
+    background:var(--ink); color:#fff;
+  }
+  @media (max-width:780px){ .navlinks{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse 900px 600px at 15% -10%, rgba(124,58,237,.35), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(192,38,211,.25), transparent 60%),
+      linear-gradient(180deg, var(--purple-900) 0%, #190a35 55%, #110726 100%);
+    color:#fff;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:140px 0 90px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size:46px 46px;
+    mask-image:radial-gradient(ellipse 900px 700px at 30% 30%, black, transparent 70%);
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative; z-index:2;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:.06em;
+    color:var(--purple-200); background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.15); border-radius:100px;
+    padding:7px 14px; margin-bottom:28px;
+  }
+  .eyebrow .blip{width:6px;height:6px;border-radius:50%; background:#34D399; box-shadow:0 0 8px #34D399;}
+  .hero h1{
+    font-size:clamp(38px, 6vw, 68px); font-weight:700; line-height:1.06;
+    max-width:900px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:linear-gradient(100deg,#D6BBFF,#F0ABFC 60%,#FBCFE8);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lead{
+    margin-top:26px; max-width:640px; font-size:18px; color:#D6CCEC; font-weight:400;
+  }
+  .hero-meta{
+    margin-top:56px; display:flex; gap:48px; flex-wrap:wrap;
+  }
+  .hero-meta .item{border-left:2px solid rgba(255,255,255,.18); padding-left:16px;}
+  .hero-meta .item b{display:block; font-size:15px; font-weight:600; margin-bottom:3px;}
+  .hero-meta .item span{font-size:13px; color:#B2A4D4;}
+
+  .scroll-cue{
+    position:absolute; bottom:36px; left:32px; z-index:2;
+    display:flex; align-items:center; gap:10px;
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#B2A4D4; letter-spacing:.05em;
+  }
+  .scroll-cue .line{width:1px; height:34px; background:linear-gradient(180deg,#B2A4D4,transparent); animation:cueMove 1.8s ease-in-out infinite;}
+  @keyframes cueMove{0%,100%{transform:translateY(0); opacity:.4;} 50%{transform:translateY(6px); opacity:1;}}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:96px 0;}
+  .section.alt{background:var(--bg-paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .kicker{
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--purple-600); font-weight:500; display:flex; align-items:center; gap:10px; margin-bottom:16px;
+  }
+  .kicker::before{content:''; width:18px; height:2px; background:var(--purple-600); display:inline-block;}
+  .section h2{font-size:clamp(28px,3.4vw,40px); font-weight:700; max-width:700px; margin-bottom:14px;}
+  .section .sub{font-size:16.5px; color:var(--ink-soft); max-width:640px;}
+
+  /* ---------- QUEM SOMOS ---------- */
+  .about-grid{
+    display:grid; grid-template-columns:1.1fr .9fr; gap:64px; margin-top:56px; align-items:start;
+  }
+  @media (max-width:860px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{font-size:16px; color:var(--ink-soft); margin-bottom:16px;}
+  .about-grid strong{color:var(--ink); font-weight:600;}
+  .partner-row{display:flex; gap:14px; margin-top:28px; flex-wrap:wrap;}
+  .partner-pill{
+    display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px;
+    border:1px solid var(--line); border-radius:100px; padding:9px 16px; background:#fff;
+  }
+  .stat-stack{display:flex; flex-direction:column; gap:0;}
+  .stat-block{padding:22px 0; border-bottom:1px solid var(--line);}
+  .stat-block:first-child{padding-top:0;}
+  .stat-block .num{font-family:'Space Grotesk'; font-size:40px; font-weight:700; color:var(--purple-700); line-height:1;}
+  .stat-block .label{font-size:14px; color:var(--ink-soft); margin-top:6px;}
+
+  /* ---------- METODO ---------- */
+  .method-track{
+    margin-top:60px; display:grid; grid-template-columns:repeat(5,1fr); gap:0; position:relative;
+  }
+  @media (max-width:900px){ .method-track{grid-template-columns:1fr; gap:18px;} }
+  .method-step{
+    position:relative; padding:28px 36px 20px 0; border-right:1px solid var(--line);
+  }
+  .method-step:not(:first-child){padding-left:36px;} .method-step:last-child{border-right:none; padding-right:0;}
+  @media (max-width:900px){ .method-step{border-right:none; border-bottom:1px solid var(--line); padding:0 0 22px 0;} }
+  .method-step .idx{
+    font-family:'JetBrains Mono'; font-size:13px; color:var(--purple-600); font-weight:600; margin-bottom:14px; display:block;
+  }
+  .method-step h4{font-size:16px; font-weight:600; margin-bottom:8px;}
+  .method-step p{font-size:13.5px; color:var(--ink-soft); line-height:1.55;}
+  .method-step .foot{font-size:11px; color:var(--purple-600); margin-top:10px; font-family:'JetBrains Mono';}
+
+  /* ---------- DIAGNOSTICO ---------- */
+  .dark-section{
+    background:linear-gradient(180deg,#150a28,#1d0e36);
+    color:#fff; padding:96px 0;
+  }
+  .dark-section .kicker{color:var(--purple-400);}
+  .dark-section .kicker::before{background:var(--purple-400);}
+  .dark-section h2{color:#fff;}
+  .dark-section .sub{color:#BBA9DE;}
+
+  .pain-grid{margin-top:52px; display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(255,255,255,.08); border-radius:14px; overflow:hidden;}
+  @media (max-width:860px){ .pain-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .pain-grid{grid-template-columns:1fr;} }
+  .pain-card{background:#1A0E32; padding:26px 24px; min-height:150px;}
+  .pain-card .pi{font-size:22px; margin-bottom:14px; display:block;}
+  .pain-card h4{font-size:15px; font-weight:600; margin-bottom:8px;}
+  .pain-card p{font-size:13.5px; color:#A698C4; line-height:1.55;}
+
+  .scenario-strip{
+    margin-top:36px; display:flex; gap:18px; flex-wrap:wrap;
+  }
+  .scen-pill{
+    font-size:13px; font-family:'JetBrains Mono'; color:#D6CCEC;
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
+    border-radius:8px; padding:10px 16px;
+  }
+  .scen-pill b{color:#fff;}
+
+  .urgency-note{
+    margin-top:44px; padding:22px 26px; border-radius:14px;
+    background:rgba(245,158,11,.09); border:1px solid rgba(245,158,11,.35);
+    display:flex; gap:16px; align-items:flex-start;
+  }
+  .urgency-note .ui{font-size:20px; line-height:1.2;}
+  .urgency-note p{font-size:14px; color:#F1D9AE; line-height:1.6;}
+  .urgency-note b{color:#fff;}
+
+  /* ---------- BACKLOG ---------- */
+  .phase-tabs{
+    display:flex; gap:8px; margin-top:48px; border-bottom:1px solid var(--line); flex-wrap:wrap;
+  }
+  .phase-tab{
+    font-family:'JetBrains Mono'; font-size:13px; font-weight:500; color:var(--ink-soft);
+    padding:14px 6px; cursor:pointer; position:relative; border:none; background:none;
+    display:flex; align-items:center; gap:8px;
+  }
+  .phase-tab .ptag{
+    width:7px; height:7px; border-radius:50%; background:var(--line);
+  }
+  .phase-tab.active{color:var(--ink); font-weight:600;}
+  .phase-tab.active .ptag{background:var(--purple-600);}
+  .phase-tab::after{
+    content:''; position:absolute; bottom:-1px; left:0; right:0; height:2px; background:var(--purple-600);
+    transform:scaleX(0); transition:transform .25s;
+  }
+  .phase-tab.active::after{transform:scaleX(1);}
+  .phase-tab + .phase-tab{margin-left:18px;}
+
+  .phase-panel{display:none; margin-top:36px; animation:fadeIn .35s ease;}
+  .phase-panel.active{display:block;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  .phase-head{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:28px;
+  }
+  .phase-head .ptitle h3{font-size:23px; font-weight:700; margin-bottom:8px;}
+  .phase-head .ptitle p{font-size:14.5px; color:var(--ink-soft); max-width:580px;}
+  .phase-totals{
+    text-align:right; flex-shrink:0;
+  }
+  .phase-totals .th{font-family:'Space Grotesk'; font-size:32px; font-weight:700; color:var(--purple-700);}
+  .phase-totals .tl{font-size:12px; color:var(--ink-soft); font-family:'JetBrains Mono'; margin-top:2px;}
+
+  .item-list{display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .item-row{
+    background:#fff; display:grid; grid-template-columns:1fr 90px 110px; gap:20px; padding:20px 24px; align-items:center;
+  }
+  @media (max-width:700px){ .item-row{grid-template-columns:1fr; gap:10px;} .item-row .it-hours,.item-row .it-prio{justify-self:start;} }
+  .item-row .it-main h4{font-size:15px; font-weight:600; margin-bottom:5px;}
+  .item-row .it-main p{font-size:13.5px; color:var(--ink-soft); line-height:1.5;}
+  .it-hours{font-family:'JetBrains Mono'; font-size:14px; color:var(--ink-soft); text-align:center;}
+  .it-hours span{display:block; font-size:10px; color:#B0A6C4; margin-top:2px;}
+  .it-prio{font-size:12px; font-weight:600; text-align:center; padding:6px 10px; border-radius:100px;}
+  .prio-alta{background:#FDE8E8; color:var(--red);}
+  .prio-media{background:#FEF3DA; color:#B8780A;}
+  .prio-baixa{background:#E3F4E8; color:var(--green);}
+
+  /* ---------- CRONOGRAMA ---------- */
+  .timeline{margin-top:56px; position:relative;}
+  .tl-track{position:absolute; left:18px; top:8px; bottom:8px; width:2px; background:var(--line);}
+  .tl-item{position:relative; padding-left:54px; padding-bottom:42px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-dot{
+    position:absolute; left:8px; top:2px; width:20px; height:20px; border-radius:50%;
+    background:#fff; border:2px solid var(--purple-600); display:flex; align-items:center; justify-content:center;
+  }
+  .tl-dot::after{content:''; width:7px; height:7px; border-radius:50%; background:var(--purple-600);}
+  .tl-item.fade .tl-dot{border-color:var(--line);}
+  .tl-item.fade .tl-dot::after{background:var(--line);}
+  .tl-item.urgent .tl-dot{border-color:var(--amber);}
+  .tl-item.urgent .tl-dot::after{background:var(--amber);}
+  .tl-period{font-family:'JetBrains Mono'; font-size:12.5px; color:var(--purple-600); font-weight:600; margin-bottom:6px;}
+  .tl-item.urgent .tl-period{color:#B8780A;}
+  .tl-item h4{font-size:17px; font-weight:700; margin-bottom:8px;}
+  .tl-item p{font-size:14.5px; color:var(--ink-soft); max-width:640px;}
+
+  /* ---------- INVESTIMENTO ---------- */
+  .price-section{
+    background:linear-gradient(180deg,#150a28,#1d0e36);
+    padding:110px 0 96px; color:#fff; text-align:center;
+  }
+  .price-section .kicker{justify-content:center; color:var(--purple-400);}
+  .price-section .kicker::before{display:none;}
+  .price-section h2{margin:0 auto 16px; text-align:center;}
+  .price-section .sub{margin:0 auto; text-align:center;}
+
+  .price-card{
+    max-width:640px; margin:56px auto 0; background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.14); border-radius:20px; padding:48px 44px; text-align:left;
+    backdrop-filter:blur(6px);
+  }
+  .price-card .ptop{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;}
+  .price-card .plabel{font-family:'JetBrains Mono'; font-size:12.5px; color:#B2A4D4; letter-spacing:.06em;}
+  .price-card .pbig{font-family:'Space Grotesk'; font-size:56px; font-weight:700; line-height:1; margin:6px 0 2px;}
+  .price-card .pbig span{font-size:22px; color:#B2A4D4; font-weight:500;}
+  .price-card .pcaption{font-size:13.5px; color:#9784BE;}
+  .price-line{
+    display:flex; justify-content:space-between; padding:16px 0; border-top:1px solid rgba(255,255,255,.1); font-size:14.5px; gap:20px;
+  }
+  .price-line b{font-weight:600; flex-shrink:0;}
+  .price-line .pl-detail{color:#B2A4D4; font-size:13px; max-width:320px; text-align:right;}
+
+  .comparison-note{
+    max-width:640px; margin:28px auto 0; padding:20px 24px; border-radius:14px;
+    background:rgba(52,211,153,.08); border:1px solid rgba(52,211,153,.28); text-align:left;
+  }
+  .comparison-note p{font-size:14px; color:#CFE9DC; line-height:1.6;}
+  .comparison-note b{color:#fff;}
+
+  .validity-note{
+    margin-top:32px; font-family:'JetBrains Mono'; font-size:13px; color:#9784BE;
+  }
+
+  /* ---------- PLANOS (3 opções) ---------- */
+  .plans-grid{
+    margin-top:56px; display:grid; grid-template-columns:repeat(3,1fr); gap:22px; text-align:left; align-items:stretch;
+  }
+  @media (max-width:900px){
+    .plans-grid{grid-template-columns:1fr; max-width:460px; margin-left:auto; margin-right:auto;}
+  }
+  .plan-card{
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.14); border-radius:20px;
+    padding:36px 28px 30px; display:flex; flex-direction:column; position:relative;
+  }
+  .plan-card.featured{
+    background:rgba(124,58,237,.14); border:1px solid var(--purple-400);
+    box-shadow:0 24px 60px rgba(124,58,237,.28);
+  }
+  @media (min-width:901px){ .plan-card.featured{ transform:translateY(-10px); } }
+  .plan-badge{
+    position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+    background:linear-gradient(100deg,var(--purple-600),var(--magenta)); color:#fff;
+    font-family:'JetBrains Mono'; font-size:10.5px; letter-spacing:.05em; font-weight:500;
+    padding:6px 16px; border-radius:100px; white-space:nowrap;
+  }
+  .plan-name{font-family:'JetBrains Mono'; font-size:12.5px; color:#B2A4D4; letter-spacing:.06em; margin-bottom:14px;}
+  .plan-price{font-family:'Space Grotesk'; font-size:36px; font-weight:700; line-height:1; margin-bottom:4px;}
+  .plan-price span{font-size:14px; color:#B2A4D4; font-weight:500;}
+  .plan-hours{font-size:13px; color:#9784BE; margin-bottom:26px; padding-bottom:22px; border-bottom:1px solid rgba(255,255,255,.1);}
+  .plan-features{list-style:none; display:flex; flex-direction:column; gap:13px; flex:1;}
+  .plan-features li{font-size:13.5px; color:#D6CCEC; display:flex; gap:9px; align-items:flex-start; line-height:1.5;}
+  .plan-features li .ic{color:#34D399; flex-shrink:0; font-size:13px; margin-top:1px;}
+  .plan-features li.off{color:#655A80;}
+  .plan-features li.off .ic{color:#4A4160;}
+  .plan-cancel{
+    margin-top:22px; padding-top:16px; border-top:1px solid rgba(255,255,255,.1);
+    font-size:12px; color:#9784BE; font-family:'JetBrains Mono';
+  }
+
+  .netflix-banner{
+    max-width:680px; margin:36px auto 0; padding:16px 28px; border-radius:100px;
+    background:rgba(52,211,153,.08); border:1px solid rgba(52,211,153,.3);
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:13.5px; color:#CFE9DC;
+  }
+  .netflix-banner b{color:#fff;}
+
+  /* ---------- EXPANSAO ---------- */
+  .front-grid{margin-top:52px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media (max-width:860px){ .front-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .front-grid{grid-template-columns:1fr;} }
+  .front-card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px 24px;}
+  .front-card .fi{font-size:22px; margin-bottom:14px; display:block;}
+  .front-card h4{font-size:15px; font-weight:600; margin-bottom:8px;}
+  .front-card p{font-size:13.5px; color:var(--ink-soft); line-height:1.55;}
+  .front-card .tag{
+    display:inline-block; margin-top:14px; font-family:'JetBrains Mono'; font-size:11px;
+    color:var(--purple-600); background:var(--purple-200); padding:4px 10px; border-radius:100px;
+  }
+  .expansion-callout{
+    margin-top:40px; padding:24px 28px; border-radius:14px;
+    background:var(--purple-200); border:1px solid var(--purple-400);
+  }
+  .expansion-callout p{font-size:14px; color:var(--purple-900); line-height:1.65;}
+  .expansion-callout b{font-weight:700;}
+
+  /* ---------- FOOTER / CTA ---------- */
+  .closing{
+    background:var(--bg-paper); padding:110px 0 80px; text-align:center;
+  }
+  .closing h2{margin:0 auto 18px; max-width:600px; text-align:center;}
+  .closing .sub{margin:0 auto 40px; text-align:center;}
+  .cta-row{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  .btn{
+    font-weight:600; font-size:15px; padding:15px 30px; border-radius:100px; display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{background:var(--ink); color:#fff;}
+  .btn-secondary{border:1px solid var(--line); color:var(--ink);}
+
+  footer{
+    border-top:1px solid var(--line); padding:32px 0; background:var(--bg-paper);
+  }
+  footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  footer .fbrand{font-weight:700; font-size:15px; display:flex; align-items:center; gap:8px;}
+  footer .fmeta{font-size:13px; color:var(--ink-soft); font-family:'JetBrains Mono';}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>INMO</div>
+    <div class="navlinks">
+      <a href="#quem-somos">Quem somos</a>
+      <a href="#diagnostico">Diagnóstico</a>
+      <a href="#backlog">Backlog</a>
+      <a href="#cronograma">Cronograma</a>
+      <a href="#investimento">Investimento</a>
+      <a href="#expansao">Expansão</a>
+    </div>
+    <a href="#investimento" class="nav-cta">Ver investimento</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="blip"></span>PROPOSTA · INMO × PROAUTO</div>
+    <h1>Cada lead perdido no início do fluxo é mídia paga que não vira <em>conversa</em>.</h1>
+    <p class="lead">Um plano de sustentação para estancar a queda de 63% logo nos primeiros blocos do bot, dar visibilidade real ao funil de anúncios e abrir caminho para evoluir todas as frentes da Proauto, sem tirar o foco da urgência comercial de agora.</p>
+    <div class="hero-meta">
+      <div class="item"><b>63%</b><span>quebra nos blocos iniciais do fluxo</span></div>
+      <div class="item"><b>R$ 26 mil/mês</b><span>investidos em mídia sob risco de desperdício</span></div>
+      <div class="item"><b>3 planos</b><span>de 30h a 50h/mês, cancelamento livre</span></div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="line"></div>role para explorar</div>
+</header>
+
+<!-- QUEM SOMOS -->
+<section class="section" id="quem-somos">
+  <div class="wrap">
+    <div class="kicker">Quem somos</div>
+    <h2>Conversas, integrações e inteligência artificial que geram resultado.</h2>
+    <div class="about-grid">
+      <div>
+        <p>Fundada em 2019 por profissionais com mais de 25 anos de experiência de mercado, a <strong>Inmo</strong> é especialista em orquestrar conversas, integrações e inteligência artificial que geram eficiência e resultado para as marcas.</p>
+        <p>Somos experts na utilização do <strong>Blip</strong>, plataforma para construção e gestão de experiências conversacionais. Atuamos integrando ecossistemas aos principais canais de mensageria da Meta, como WhatsApp e Instagram, em conjunto com provedores de IA, indo além do chatbot tradicional.</p>
+        <p>Nosso objetivo é viabilizar o contato das pessoas com suas marcas de preferência, nos canais de sua escolha, de forma fluida e inteligente. Daí o nosso nome: <strong>Inmo, Omni ao contrário.</strong></p>
+        <div class="partner-row">
+          <div class="partner-pill">🔵 Blip · Parceiro certificado</div>
+          <div class="partner-pill">🟢 cvCRM · Parceiro certificado</div>
+        </div>
+      </div>
+      <div class="stat-stack">
+        <div class="stat-block"><div class="num">180+</div><div class="label">soluções construídas em diversos segmentos</div></div>
+        <div class="stat-block"><div class="num">25+</div><div class="label">anos de experiência de mercado combinada dos fundadores</div></div>
+        <div class="stat-block"><div class="num">2019</div><div class="label">ano de fundação da Inmo</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METODO -->
+<section class="section alt">
+  <div class="wrap">
+    <div class="kicker">Método Inmo</div>
+    <h2>Da imersão à evolução contínua, em cinco movimentos.</h2>
+    <div class="method-track">
+      <div class="method-step">
+        <span class="idx">01</span>
+        <h4>Descoberta</h4>
+        <p>Identificação do contexto de negócio, da oportunidade de automação e dos objetivos que precisam ser alcançados.</p>
+      </div>
+      <div class="method-step">
+        <span class="idx">02</span>
+        <h4>Kick-off</h4>
+        <p>Sessão online com a equipe Inmo para imersão completa no contexto do cliente.</p>
+      </div>
+      <div class="method-step">
+        <span class="idx">03</span>
+        <h4>Arquitetura</h4>
+        <p>Definição da arquitetura da solução: fluxos, integrações, IA e responsabilidades entre plataformas.</p>
+      </div>
+      <div class="method-step">
+        <span class="idx">04</span>
+        <h4>Design & Construção</h4>
+        <p>Design da experiência conversacional e construção nas plataformas escolhidas, integrando sistemas, dados e IA.</p>
+      </div>
+      <div class="method-step">
+        <span class="idx">05</span>
+        <h4>Evolução contínua</h4>
+        <p>Publicação e monitoramento contínuo de resultados, garantindo performance e geração de valor a longo prazo.</p>
+        <div class="foot">¹ no plano de sustentação</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIAGNOSTICO -->
+<section class="dark-section" id="diagnostico">
+  <div class="wrap">
+    <div class="kicker">01 · Contexto e diagnóstico</div>
+    <h2>O cenário atual do funil comercial da Proauto.</h2>
+    <p class="sub">A análise da jornada de contatos no Blip mostrou uma quebra de 63% já nos dois primeiros blocos do fluxo, nome e CPF, distribuída de forma quase igual entre os dois pontos. Ao mesmo tempo, a taxa de transbordo caiu 50% em relação a junho sem que houvesse qualquer alteração nos criativos ou textos das campanhas, o que reforça que a causa está no fluxo do bot e não na mídia.</p>
+    <div class="scenario-strip">
+      <div class="scen-pill"><b>63%</b> quebra nos blocos de nome e CPF</div>
+      <div class="scen-pill"><b>50%</b> queda no transbordo vs. junho</div>
+      <div class="scen-pill"><b>R$ 26 mil/mês</b> em mídia sob risco</div>
+    </div>
+
+    <div style="margin-top:64px;">
+      <h3 style="font-size:20px; font-weight:700; margin-bottom:8px;">Principais dores identificadas</h3>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <span class="pi">🚧</span>
+        <h4>Quebra nos blocos iniciais</h4>
+        <p>63% dos contatos abandonam o fluxo logo nos blocos de nome e CPF, praticamente metade em cada um dos dois pontos.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pi">🔎</span>
+        <h4>Ausência de triagem inicial</h4>
+        <p>O bot pede dados sensíveis antes de entender se a pessoa realmente deseja atendimento humano, gerando atrito desnecessário.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pi">👤</span>
+        <h4>Transbordo sem contexto</h4>
+        <p>Ativar o transbordo por inatividade sem qualificação prévia faz o atendente receber o contato sem nenhuma informação disponível.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pi">📊</span>
+        <h4>Relatórios sem origem por canal</h4>
+        <p>O Blip não segmenta hoje quem veio de anúncio, dificultando ligar o investimento em mídia à conversão real do funil.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pi">⏱️</span>
+        <h4>Latência dos relatórios Blip</h4>
+        <p>Atualizações defasadas da plataforma mascaram o dado real de transbordo, gerando alarmes falsos sobre o desempenho do bot.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pi">🪪</span>
+        <h4>Atrito na coleta de CPF</h4>
+        <p>Pedir um dado sensível cedo demais no fluxo gera abandono, principalmente entre leads vindos de campanhas pagas.</p>
+      </div>
+    </div>
+
+    <div class="urgency-note">
+      <div class="ui">⚠️</div>
+      <p><b>Por que agir agora:</b> enquanto o fluxo não é ajustado, cada lead perdido nos blocos iniciais representa mídia paga que não converte em conversa. O custo do plano de sustentação é inferior ao valor investido mensalmente em anúncios que hoje não estão performando como deveriam.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BACKLOG -->
+<section class="section alt" id="backlog">
+  <div class="wrap">
+    <div class="kicker">02 · Backlog de evolução</div>
+    <h2>Ações emergenciais primeiro, depois estrutura e escala.</h2>
+    <p class="sub">Organizado em três fases para conter a perda de leads sem esperar por mudanças mais complexas: começamos pelo que estanca o problema esta semana, seguimos para a otimização do fluxo e chegamos à inteligência artificial e à evolução contínua.</p>
+
+    <div class="phase-tabs">
+      <button class="phase-tab active" data-phase="1"><span class="ptag"></span>Fase 1 · Ações emergenciais</button>
+      <button class="phase-tab" data-phase="2"><span class="ptag"></span>Fase 2 · Otimização do fluxo</button>
+      <button class="phase-tab" data-phase="3"><span class="ptag"></span>Fase 3 · IA e evolução contínua</button>
+    </div>
+
+    <!-- FASE 1 -->
+    <div class="phase-panel active" id="phase-1">
+      <div class="phase-head">
+        <div class="ptitle">
+          <h3>Ações Emergenciais</h3>
+          <p>Foco em conter a perda de leads imediatamente, com implementação prevista para esta semana, entre quarta e sexta-feira, conforme alinhado na reunião.</p>
+        </div>
+        <div class="phase-totals"><div class="th">34h</div><div class="tl">TOTAL ESTIMADO</div></div>
+      </div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="it-main"><h4>Configuração de inatividade nos blocos críticos</h4><p>Ativação do transbordo por inatividade nos blocos de nome e CPF, com tempo ajustado para reduzir a quebra sem gerar transbordos indesejados ou prejudicar a saúde do número.</p></div>
+          <div class="it-hours">8h</div>
+          <div class="it-prio prio-alta">Alta</div>
+        </div>
+        <div class="item-row">
+          <div class="it-main"><h4>Definição de pontos de conversão do funil</h4><p>Marcação clara de quais blocos caracterizam conversão, nome, CPF ou atendimento humano, dando visibilidade real ao funil para leitura futura de relatórios.</p></div>
+          <div class="it-hours">6h</div>
+          <div class="it-prio prio-alta">Alta</div>
+        </div>
+        <div class="item-row">
+          <div class="it-main"><h4>Distribuição de leads via rodízio de filas</h4><p>Configuração para que contatos direcionados por inatividade, sem dados prévios, sejam distribuídos entre todas as filas de atendimento disponíveis.</p></div>
+          <div class="it-hours">6h</div>
+          <div class="it-prio prio-alta">Alta</div>
+        </div>
+        <div class="item-row">
+          <div class="it-main"><h4>Correlação entre quedas do bot e desempenho das campanhas</h4><p>Leitura conjunta dos dados do Meta Ads e da jornada do Blip para confirmar que a causa da queda está no fluxo, e não em alteração de criativos ou textos.</p></div>
+          <div class="it-hours">8h</div>
+          <div class="it-prio prio-media">Média</div>
+        </div>
+        <div class="item-row">
+          <div class="it-main"><h4>Ajuste emergencial de microcopy</h4><p>Revisão pontual dos textos dos blocos de nome e CPF para reduzir atrito imediato, enquanto a reestruturação completa do fluxo é desenhada na Fase 2.</p></div>
+          <div class="it-hours">6h</div>
+          <div class="it-prio prio-media">Média</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 2 -->
+    <div class="phase-panel" id="phase-2">
+      <div class="phase-head">
+        <div class="ptitle">
+          <h3>Otimização do Fluxo</h3>
+          <p>Reestruturação dos blocos iniciais para reduzir a quebra na origem, com um fluxo especial para quem vem de anúncio, adiando a coleta de dados sensíveis e trazendo o Flows como formulário único dentro do WhatsApp.</p>
+        </div>
+        <div class="phase-totals"><div class="th">95h</div><div class="tl">TOTAL ESTIMADO</div></div>
+      </div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="it-main"><h4>Revisão completa da jornada de conversão</h4><p>Redesenho dos blocos a partir dos primeiros pontos de quebra, servindo de base para todas as demais entregas desta fase.</p></div>
+          <div class="it-hours">20h</div>
+          <div class="it-prio prio-media">Média</div>
+        </div>
+        <div class="item-row">
+          <div class="it-main"><h4>Pergunta de triagem inicial</h4><p>Identificação logo no início se o contato deseja atendimento humano ou autoatendimento, reduzindo a relutância em interagir com os blocos de árvore de decisão.</p></div>
+          <div class="it-hours">10h</div>
+          <div class="it-prio prio-alta">Alta</div>
+        </div>
+        <div class="item-row">
+          <div class="it-main"><h4>Reposicionamento da coleta de CPF</h4><p>Movimentação da solicitação do dado sensível para uma etapa posterior do fluxo, após a qualificação inicial do lead, reduzindo o atrito com quem vem de anúncios.</p></div>
+          <div class="it-hours">5h</div>
+          <div class="it-prio prio-alta">Alta</div>
+        </div>
+        <div class="item-row">
+          <div class="it-main"><h4>Fluxo especial para leads de anúncio</h4><p>Texto contextualizado para quem chega por campanha paga, reforçando a origem do contato logo na abertura da conversa para aumentar a retenção nos primeiros blocos.</p></div>
+          <div class="it-hours">14h</div>
+          <div class="it-prio prio-alta">Alta</div>
+        </div>
+        <div class="item-row">
+          <div class="it-main"><h4>Implementação de Flows para formulário único</h4><p>Substituição da coleta fragmentada de nome e CPF por um formulário interativo dentro do próprio WhatsApp, evitando interações repetitivas.</p></div>
+          <div class="it-hours">30h</div>
+          <div class="it-prio prio-alta">Alta</div>
+        </div>
+        <div class="item-row">
+          <div class="it-main"><h4>Relatório de correlação anúncio × conversão</h4><p>Painel complementar que cruza os dados do Click Tracker com os pontos de conversão definidos na Fase 1, dando visibilidade real ao investimento em mídia.</p></div>
+          <div class="it-hours">16h</div>
+          <div class="it-prio prio-media">Média</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 3 -->
+    <div class="phase-panel" id="phase-3">
+      <div class="phase-head">
+        <div class="ptitle">
+          <h3>IA e Evolução Contínua</h3>
+          <p>Uso de inteligência artificial para reduzir a relutância nos blocos iniciais e espaço estruturado para estender o mesmo plano de sustentação a outras frentes da Proauto, sem desviar o foco da urgência comercial atual.</p>
+        </div>
+        <div class="phase-totals"><div class="th">60h</div><div class="tl">TOTAL ESTIMADO</div></div>
+      </div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="it-main"><h4>IA generativa na abertura do fluxo</h4><p>Redução da relutância de leads em interagir com blocos de árvore de decisão, oferecendo uma experiência conversacional mais fluida antes da qualificação.</p></div>
+          <div class="it-hours">24h</div>
+          <div class="it-prio prio-media">Média</div>
+        </div>
+        <div class="item-row">
+          <div class="it-main"><h4>Guardrails e curadoria das respostas de IA</h4><p>Configuração de limites seguros para o uso de IA generativa no contexto comercial da Proauto, com disclosure de que o risco de alucinação nunca é zero.</p></div>
+          <div class="it-hours">12h</div>
+          <div class="it-prio prio-alta">Alta</div>
+        </div>
+        <div class="item-row">
+          <div class="it-main"><h4>Diagnóstico de frentes adicionais Proauto</h4><p>Avaliação e priorização conjunta de outros projetos em paralelo e em aberto, como o RCS do Blocx, para inclusão futura dentro do mesmo pacote de sustentação.</p></div>
+          <div class="it-hours">8h</div>
+          <div class="it-prio prio-baixa">Baixa</div>
+        </div>
+        <div class="item-row">
+          <div class="it-main"><h4>Otimização contínua guiada por dados</h4><p>Revisão periódica dos indicadores de conversão e transbordo, com ajustes mensais no fluxo com base em dados reais de uso.</p></div>
+          <div class="it-hours">16h</div>
+          <div class="it-prio prio-baixa">Baixa</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRONOGRAMA -->
+<section class="section" id="cronograma">
+  <div class="wrap">
+    <div class="kicker">03 · Cronograma macro</div>
+    <h2>Ação imediata esta semana, estrutura e escala nos meses seguintes.</h2>
+    <p class="sub">Priorizamos primeiro o que estanca a perda de leads e só depois avançamos para as mudanças mais complexas de fluxo e de inteligência artificial, respeitando o tempo real de desenho, construção e validação de cada entrega.</p>
+
+    <div class="timeline">
+      <div class="tl-track"></div>
+      <div class="tl-item urgent">
+        <div class="tl-dot"></div>
+        <div class="tl-period">ESTA SEMANA · QUARTA A SEXTA · FASE 1</div>
+        <h4>Ações Emergenciais</h4>
+        <p>Configuração de inatividade, definição de pontos de conversão, distribuição de filas e correlação entre a queda do bot e o desempenho das campanhas.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">MESES 2 E 3 · FASE 2</div>
+        <h4>Otimização do Fluxo</h4>
+        <p>Revisão completa da jornada, triagem inicial, reposicionamento da coleta de CPF, fluxo especial para leads de anúncio, implementação do Flows e relatório de correlação anúncio × conversão.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">MESES 4 E 5 · FASE 3</div>
+        <h4>IA e Evolução Contínua</h4>
+        <p>IA generativa na abertura do fluxo, guardrails de segurança e diagnóstico de frentes adicionais, com início cerca de dois meses após o fechamento da Fase 2.</p>
+      </div>
+      <div class="tl-item fade">
+        <div class="tl-dot"></div>
+        <div class="tl-period">MÊS 6 EM DIANTE</div>
+        <h4>Expansão para outras frentes Proauto</h4>
+        <p>Avaliação conjunta para estender o mesmo plano de sustentação a projetos em paralelo, como o RCS do Blocx e demais iniciativas em aberto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTIMENTO -->
+<section class="price-section" id="investimento">
+  <div class="wrap">
+    <div class="kicker">Tá, mas quanto fica?</div>
+    <h2>Três formatos de pacote, pensados para estancar a perda agora e sustentar o crescimento depois.</h2>
+    <p class="sub">Um modelo de parceria por pacote mensal de horas, com prioridade total para as ações emergenciais desta semana. Todos os planos já incluem o backlog completo, o que muda entre eles é o ritmo de execução e a folga para manter o cronograma prometido.</p>
+
+    <div class="plans-grid">
+      <div class="plan-card">
+        <div class="plan-name">START</div>
+        <div class="plan-price">R$ 10.480<span>/mês</span></div>
+        <div class="plan-hours">30 horas técnicas mensais</div>
+        <ul class="plan-features">
+          <li><span class="ic">✓</span>Acesso ao backlog completo: Fases 1, 2 e 3</li>
+          <li><span class="ic">✓</span>CS Evolução dedicado, com alinhamento semanal</li>
+          <li><span class="ic">✓</span>SLA de ações emergenciais em até 24h úteis</li>
+          <li class="off"><span class="ic">–</span>Sem reuniões estratégicas quinzenais</li>
+          <li class="off"><span class="ic">–</span>Sem folga garantida para o ritmo do cronograma prometido</li>
+          <li class="off"><span class="ic">–</span>Sem espaço reservado para frentes adicionais</li>
+        </ul>
+        <div class="plan-cancel">Cancelamento sem multa, estilo Netflix</div>
+      </div>
+
+      <div class="plan-card featured">
+        <div class="plan-badge">Recomendado</div>
+        <div class="plan-name">PRO</div>
+        <div class="plan-price">R$ 13.480<span>/mês</span></div>
+        <div class="plan-hours">40 horas técnicas mensais</div>
+        <ul class="plan-features">
+          <li><span class="ic">✓</span>Acesso ao backlog completo: Fases 1, 2 e 3</li>
+          <li><span class="ic">✓</span>CS Evolução dedicado, com alinhamento semanal</li>
+          <li><span class="ic">✓</span>SLA de ações emergenciais em até 12h úteis</li>
+          <li><span class="ic">✓</span>Reuniões estratégicas quinzenais</li>
+          <li><span class="ic">✓</span>Ritmo alinhado ao cronograma prometido</li>
+          <li class="off"><span class="ic">–</span>Sem espaço reservado para frentes adicionais</li>
+        </ul>
+        <div class="plan-cancel">Cancelamento sem multa, estilo Netflix</div>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-name">ENTERPRISE</div>
+        <div class="plan-price">R$ 16.480<span>/mês</span></div>
+        <div class="plan-hours">50 horas técnicas mensais</div>
+        <ul class="plan-features">
+          <li><span class="ic">✓</span>Acesso ao backlog completo: Fases 1, 2 e 3</li>
+          <li><span class="ic">✓</span>CS Evolução dedicado, com alinhamento semanal</li>
+          <li><span class="ic">✓</span>SLA de ações emergenciais em até 12h úteis</li>
+          <li><span class="ic">✓</span>Reuniões estratégicas quinzenais</li>
+          <li><span class="ic">✓</span>Ritmo alinhado ao cronograma prometido</li>
+          <li><span class="ic">✓</span>Espaço reservado para frentes adicionais, como o RCS do Blocx</li>
+        </ul>
+        <div class="plan-cancel">Cancelamento sem multa, estilo Netflix</div>
+      </div>
+    </div>
+
+    <div class="netflix-banner">🔓 <b>Cancelamento livre, sem fidelidade e sem multa</b> — assim como no modelo Netflix, você sai quando quiser, em qualquer um dos três planos.</div>
+
+    <div class="comparison-note">
+      <p><b>Um investimento menor do que a perda atual:</b> mesmo no plano Enterprise, o pacote mensal de sustentação representa uma fração dos R$ 26 mil investidos hoje em mídia, evitando que esse valor continue sendo desperdiçado por um fluxo que ainda quebra logo no início.</p>
+    </div>
+
+    <div class="validity-note">Validade da proposta: 10 dias · Horas não cumulativas mês a mês · Ações emergenciais previstas para esta semana, entre quarta e sexta-feira</div>
+  </div>
+</section>
+
+<!-- EXPANSAO -->
+<section class="section alt" id="expansao">
+  <div class="wrap">
+    <div class="kicker">04 · Expansão contínua</div>
+    <h2>O mesmo plano pode crescer junto com todas as frentes da Proauto.</h2>
+    <p class="sub">A prioridade imediata é estancar a queda de conversão comercial. Mas o pacote de sustentação foi desenhado para também absorver outros projetos já em andamento ou em aberto, sem gerar uma nova proposta comercial a cada nova demanda.</p>
+
+    <div class="front-grid">
+      <div class="front-card">
+        <span class="fi">📡</span>
+        <h4>RCS do Blocx</h4>
+        <p>Canal RCS já em fase de lançamento, pronto para ser absorvido pelo mesmo pacote de horas assim que a prioridade comercial permitir.</p>
+        <span class="tag">Em andamento</span>
+      </div>
+      <div class="front-card">
+        <span class="fi">🔗</span>
+        <h4>Novas integrações</h4>
+        <p>Conexões futuras com CRM, ERP ou sistemas próprios da Proauto, priorizadas dentro da mesma sustentação, sem contrato à parte.</p>
+        <span class="tag">Sob avaliação</span>
+      </div>
+      <div class="front-card">
+        <span class="fi">💬</span>
+        <h4>Outras iniciativas em aberto</h4>
+        <p>Qualquer nova frente identificada entra no mesmo fluxo de priorização do plano de sustentação, sem necessidade de uma nova proposta comercial.</p>
+        <span class="tag">Sempre disponível</span>
+      </div>
+    </div>
+
+    <div class="expansion-callout">
+      <p><b>Como isso funciona na prática:</b> no plano Enterprise, o espaço para frentes adicionais já está reservado dentro das 50 horas mensais. Nos planos Start e Pro, novas frentes entram na fila de priorização do backlog ou podem ser somadas ao pacote de horas, sempre em alinhamento com o CS responsável, sem desviar o foco da urgência comercial de agora.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <div class="wrap">
+    <h2>Vamos trocar uma ideia?</h2>
+    <p class="sub">Ficamos à disposição para uma conversa rápida e esclarecer qualquer ponto desta proposta.</p>
+    <div class="cta-row">
+      <a href="mailto:contato@inmo.work" class="btn btn-primary">contato@inmo.work</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand"><span class="dot" style="width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#7C3AED,#C026D3);display:inline-block;"></span>INMO</div>
+    <div class="fmeta">Proposta Proauto · Julho 2026</div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.phase-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.phase-tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.phase-panel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('phase-'+tab.dataset.phase).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
